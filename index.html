@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Diwali Lanterns</title>
+<style>
+/* night sky */
+body{margin:0;height:100vh;overflow:hidden;
+  background:linear-gradient(#050420,#1a0a45 55%,
+    #6b2a4a 85%,#ff8a3c)}
+
+/* twinkling stars */
+.sky,.sky::after{position:fixed;inset:0;
+  background-image:
+   radial-gradient(3px 3px at 40px 60px,#fff,#0000),
+   radial-gradient(4px 4px at 160px 120px,#ffe9a8,#0000),
+   radial-gradient(3px 3px at 230px 30px,#fff,#0000),
+   radial-gradient(4px 4px at 90px 190px,#fff,#0000),
+   radial-gradient(3px 3px at 250px 170px,#ffe9a8,#0000);
+  background-size:277px 241px;
+  mask:linear-gradient(#000 50%,#0000 80%);
+  animation:twinkle 3s ease-in-out infinite alternate}
+.sky::after{content:"";background-size:191px 167px;
+  animation-duration:2.2s;animation-delay:-1s}
+@keyframes twinkle{from{opacity:.3}to{opacity:1}}
+
+/* glowing moon */
+.moon{position:fixed;top:8%;right:11%;
+  width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,
+    #fffbe8,#ffe9a8 60%,#e8c76b);
+  box-shadow:0 0 70px 24px #ffe9a877;
+  animation:glow 5s ease-in-out infinite alternate}
+.moon::after{content:"";position:absolute;inset:-260px;
+  border-radius:50%;z-index:-1;
+  background:radial-gradient(#ffe9a855,#0000 65%)}
+@keyframes glow{to{box-shadow:0 0 100px 44px #ffe9a8aa}}
+
+/* sky lanterns: --i makes each one different */
+i{--w:calc(76px + mod(var(--i)*17,6)*16px);
+  position:absolute;bottom:-20vh;width:var(--w);
+  left:calc(mod(var(--i)*47,88)*1vw);
+  height:calc(var(--w)*1.3);
+  border-radius:40% 40% 14% 14%/30% 30% 10% 10%;
+  background:radial-gradient(ellipse at 50% 80%,
+    #fff3b0,#ffb830 40%,#ff6a13 80%,#b33a05);
+  filter:drop-shadow(0 0 28px #ff9a2ecc);
+  animation:
+   rise calc(15s + mod(var(--i)*3,7)*1s) linear
+    calc(mod(var(--i)*11,13)*.7s - 6s) infinite both,
+   sway calc(4s + mod(var(--i)*3,5)*.5s) ease-in-out
+    calc(var(--i)*-.7s) infinite alternate}
+i::before{content:"";position:absolute;
+  left:50%;bottom:6%;width:34%;height:40%;
+  translate:-50% 0;border-radius:50%;
+  background:radial-gradient(#fff,#ffe27a 45%,#0000 70%);
+  animation:flick .3s ease-in-out infinite alternate}
+i::after{content:"";position:absolute;inset:0;
+  border-radius:inherit;
+  background:linear-gradient(#5a1d03 0 4%,#0000 4% 93%,
+    #5a1d03 93%),repeating-linear-gradient(90deg,
+    #0000 0 18%,#7a2a0655 18% 20%)}
+@keyframes rise{
+  0%{translate:0 0;opacity:0}
+  6%{opacity:1}
+  90%{opacity:1}
+  100%{translate:0 -135vh;opacity:0}}
+@keyframes sway{
+  from{transform:translateX(-34px) rotate(-5deg)}
+  to{transform:translateX(34px) rotate(5deg)}}
+@keyframes flick{
+  from{scale:.8 .9;opacity:.75}
+  to{scale:1.1 1.1;opacity:1}}
+
+/* a row of diyas with living flames */
+b{--n:calc(var(--i)*13.5 - 5)}
+b{position:absolute;width:160px;height:70px;
+  left:calc(var(--n)*1vw);
+  bottom:calc(3vh + mod(var(--i),2)*4vh);
+  border-radius:0 0 160px 160px/0 0 70px 70px;
+  background:linear-gradient(#f0a03a,#a8470f 60%,#6a2a08);
+  box-shadow:0 0 50px 8px #ff8a2a88}
+b::before{content:"";position:absolute;
+  left:50%;bottom:92%;width:36px;height:90px;
+  translate:-50% 0;transform-origin:50% 100%;
+  border-radius:50% 50% 50% 50%/70% 70% 30% 30%;
+  background:linear-gradient(#fff,#ffd45a 40%,#ff5a00);
+  box-shadow:0 0 60px 24px #ffa03399;
+  animation:flame .28s ease-in-out infinite alternate;
+  animation-delay:calc(var(--i)*-.09s)}
+@keyframes flame{
+  from{transform:skewX(-7deg) scaleY(.88)}
+  to{transform:skewX(7deg) scaleY(1.12)}}
+
+/* the reveal */
+h1{position:fixed;z-index:5;top:33%;width:100%;margin:0;
+  text-align:center;font:italic 800 270px/1.02 serif;
+  background:linear-gradient(#fffbe0,#ffd45a 55%,#f0a020);
+  -webkit-background-clip:text;color:#0000;
+  filter:drop-shadow(0 4px 5px #2a0a00)
+    drop-shadow(0 0 26px #ffb82e);
+  animation:reveal 3s ease-out 10s both,
+    pulse 2s ease-in-out 13s infinite alternate}
+@keyframes reveal{
+  from{clip-path:inset(-80px 100% -80px 0);opacity:0}
+  to{clip-path:inset(-80px -80px);opacity:1}}
+@keyframes pulse{to{filter:drop-shadow(0 4px 5px #2a0a00)
+    drop-shadow(0 0 60px #ffd45a)}}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<div class="moon"></div>
+<i style="--i:1"></i><i style="--i:2"></i>
+<i style="--i:3"></i><i style="--i:4"></i>
+<i style="--i:5"></i><i style="--i:6"></i>
+<i style="--i:7"></i><i style="--i:8"></i>
+<i style="--i:9"></i><i style="--i:10"></i>
+<i style="--i:11"></i><i style="--i:12"></i>
+<i style="--i:13"></i><i style="--i:14"></i>
+<i style="--i:15"></i><i style="--i:16"></i>
+<i style="--i:17"></i><i style="--i:18"></i>
+<i style="--i:19"></i><i style="--i:20"></i>
+<i style="--i:21"></i><i style="--i:22"></i>
+<i style="--i:23"></i><i style="--i:24"></i>
+<i style="--i:25"></i><i style="--i:26"></i>
+<i style="--i:27"></i><i style="--i:28"></i>
+<b style="--i:1"></b><b style="--i:2"></b>
+<b style="--i:3"></b><b style="--i:4"></b>
+<b style="--i:5"></b><b style="--i:6"></b>
+<b style="--i:7"></b>
+<h1>Happy<br>Diwali</h1>
+</body>
+</html>
